@@ -1,0 +1,49 @@
+{
+  "name": "react-as-range-slider",
+  "version": "0.0.1",
+  "description": "react-as-range-slider",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "node server.js --server",
+    "build": "webpack"
+  },
+  "author": "lingyucoder@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer-loader": "~2.0.0",
+    "babel-core": "~5.5.4",
+    "babel-eslint": "~4.1.1",
+    "babel-loader": "~5.1.4",
+    "css-loader": "~0.14.4",
+    "eslint": "~1.3.1",
+    "eslint-plugin-react": "^3.3.1",
+    "less": "~2.5.1",
+    "less-loader": "~2.2.0",
+    "node-libs-browser": "^0.5.2",
+    "react-hot-loader": "~1.2.7",
+    "style-loader": "~0.12.3",
+    "webpack": "~1.9.10",
+    "webpack-dev-server": "~1.9.0"
+  },
+  "peerDependencies": {
+    "react": "~0.13.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:LingyuCoder/react-as-range-slider.git"
+  },
+  "keywords": [
+    "react",
+    "textarea",
+    "webpack"
+  ],
+  "bugs": {
+    "url": "https://github.com/LingyuCoder/react-as-range-slider/issues"
+  },
+  "dependencies": {
+    "react-as-dnd": "^0.1.1",
+    "react-as-event-mixin": "^0.1.1",
+    "react-mixin": "^1.7.0"
+  }
+}
