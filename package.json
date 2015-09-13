@@ -1,6 +1,6 @@
 {
   "name": "react-as-range-slider",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "一个React实现的拖动数字输入组件",
   "main": "src/index.js",
   "scripts": {
