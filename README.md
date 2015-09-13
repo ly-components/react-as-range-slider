@@ -3,7 +3,7 @@ react-as-range-slider
 
 一个React实现的拖动数字输入组件
 
-[DEMO](lingyucoder.github.io/react-as-range-slider/demo/demo.html)
+[DEMO](http://lingyucoder.github.io/react-as-range-slider/demo/demo.html)
 
 ## 安装
 
@@ -25,7 +25,7 @@ React.render(<NumberSlider/>, document.querySelector('#normal'));
 React.render(<RangeSlider/>, document.querySelector('#range'));
 ```
 
-更多使用示例和配置详情见[DEMO](lingyucoder.github.io/react-as-range-slider/demo/demo.html)
+更多使用示例和配置详情见[DEMO](http://lingyucoder.github.io/react-as-range-slider/demo/demo.html)
 
 ## 配置
 
