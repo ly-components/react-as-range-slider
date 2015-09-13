@@ -15,13 +15,12 @@ class NumberSlider extends React.Component {
   static displayName = 'NumberSlider'
   static propTypes = {
     className: React.PropTypes.string,
-    left: React.PropTypes.number,
     max: React.PropTypes.number,
     min: React.PropTypes.number,
 		name: React.PropTypes.string,
     onChange: React.PropTypes.func,
-    right: React.PropTypes.number,
     step: React.PropTypes.number,
+    value: React.PropTypes.arrayOf(React.PropTypes.number),
     width: React.PropTypes.number
   }
   static defaultProps = {
@@ -35,16 +34,25 @@ class NumberSlider extends React.Component {
   }
   constructor(props) {
     super();
+    let [left, right] = props.value || [];
     this.state = {
-      left: getSteppedValue(props.left || props.min, props.max, props.min, props.step),
-      right: getSteppedValue(props.right || props.max, props.max, props.min, props.step)
+      left: getSteppedValue(left || props.min, props.max, props.min, props.step),
+      right: getSteppedValue(right || props.max, props.max, props.min, props.step)
     };
     this._handleLeftDragMove = this._handleLeftDragMove.bind(this);
     this._handleRightDragMove = this._handleRightDragMove.bind(this);
   }
   componentWillReceiveProps(props) {
-    ('left' in props) && (this.state.left = props.left);
-    ('right' in props) && (this.state.right = props.right);
+    let min = props.min || this.props.min;
+    let max = props.max || this.props.max;
+    let step = props.step || this.props.step;
+    if(Array.isArray(props.value)) {
+      let [left, right] = props.value;
+      this.setState({
+        left: getSteppedValue(left || this.state.left || min, max, min, step),
+        right: getSteppedValue(right || this.state.right || min, max, min, step),
+      });
+    }
   }
   _handleLeftDragMove(e) {
 		let {
@@ -55,7 +63,7 @@ class NumberSlider extends React.Component {
     this.setState({
       left
     });
-    this.fireAll('change', left, this.state.right);
+    this.fireAll('change', [left, this.state.right]);
   }
   _handleRightDragMove(e) {
 		let {
@@ -66,7 +74,7 @@ class NumberSlider extends React.Component {
     this.setState({
       right
     });
-    this.fireAll('change', this.state.left, right);
+    this.fireAll('change', [this.state.left, right]);
   }
   render() {
 		let {
@@ -116,7 +124,7 @@ class NumberSlider extends React.Component {
     });
     return (
       <div className={this.props.className} style={{width: this.props.width}}>
-				{ this.props.name && <input name={this.props.name} type="hidden" value={this.state.value}></input>}
+				{ this.props.name && <input name={this.props.name} type="hidden" value={[left, right]}></input>}
         <div className="react-as-range-slider-line">
           <div className="react-as-range-slider-line-range" style={{width: rightOffset - leftOffset, marginLeft: leftOffset}}></div>
         </div>

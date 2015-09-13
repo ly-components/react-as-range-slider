@@ -40,7 +40,13 @@ class NumberSlider extends React.Component {
     this._handleDragMove = this._handleDragMove.bind(this);
   }
   componentWillReceiveProps(props) {
-    ('value' in props) && (this.state.value = props.value);
+    let min = props.min || this.props.min;
+    let max = props.max || this.props.max;
+    let step = props.step || this.props.step;
+    if('value' in props)
+      this.setState({
+        value: getSteppedValue(props.value || this.state.value || min, max, min, step)
+      });
   }
   _handleDragMove(e) {
 		let {

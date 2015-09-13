@@ -6,16 +6,130 @@
 </head>
 <body>
   <h1>react-as-range-slider</h1>
-  <h2>数字输入</h2>
-  <section>
+  <h2>Number Slider</h2>
+	<section>
+		<h3>Default</h3>
     <div id="normal"></div>
+		<div id="normal-result">0</div>
     <xmp>
-React.render(<NumberSlider/>, document.getElementById('normal'));
+<NumberSlider onChange={val => document.querySelector('#normal-result').textContent = val}/>
     </xmp>
   </section>
 
+	<section>
+		<h3>Minimum and maximum</h3>
+    <div id="normal-limit"></div>
+		<div id="normal-limit-result">100</div>
+    <xmp>
+<NumberSlider max={200} min={100} onChange={val => document.querySelector('#normal-limit-result').textContent = val}/>
+    </xmp>
+  </section>
 
-  <div id="range"></div>
+	<section>
+		<h3>Step</h3>
+    <div id="normal-step"></div>
+		<div id="normal-step-result">100</div>
+    <xmp>
+<NumberSlider step={10} max={200} min={100} onChange={val => document.querySelector('#normal-step-result').textContent = val}/>
+    </xmp>
+  </section>
+
+	<section>
+		<h3>Width</h3>
+    <div id="normal-width"></div>
+		<div id="normal-width-result">100</div>
+    <xmp>
+<NumberSlider step={10} width={600} max={200} min={100} onChange={val => document.querySelector('#normal-width-result').textContent = val}/>
+    </xmp>
+  </section>
+
+	<section>
+		<h3>Default Value</h3>
+    <div id="normal-value"></div>
+		<div id="normal-value-result">150</div>
+    <xmp>
+<NumberSlider value={150} step={10} width={600} max={200} min={100} onChange={val => document.querySelector('#normal-value-result').textContent = val}/>
+    </xmp>
+  </section>
+
+	<h2>Range Slider</h2>
+
+	<section>
+		<h3>Default</h3>
+    <div id="range"></div>
+		<div id="range-result">0, 100</div>
+    <xmp>
+<RangeSlider onChange={val => document.querySelector('#range-result').textContent = `${val[0]}, ${val[1]}`}/>
+    </xmp>
+  </section>
+
+	<section>
+		<h3>Minimum and maximum</h3>
+    <div id="range-limit"></div>
+		<div id="range-limit-result">100, 200</div>
+    <xmp>
+<RangeSlider max={200} min={100} onChange={val => document.querySelector('#range-limit-result').textContent = `${val[0]}, ${val[1]}`}/>
+    </xmp>
+  </section>
+
+	<section>
+		<h3>Step</h3>
+    <div id="range-step"></div>
+		<div id="range-step-result">100, 200</div>
+    <xmp>
+<RangeSlider max={200} min={100} onChange={val => document.querySelector('#range-step-result').textContent = `${val[0]}, ${val[1]}`} step={10}/>
+    </xmp>
+  </section>
+
+	<section>
+		<h3>Width</h3>
+    <div id="range-width"></div>
+		<div id="range-width-result">100, 200</div>
+    <xmp>
+<RangeSlider max={200} min={100} onChange={val => document.querySelector('#range-width-result').textContent = `${val[0]}, ${val[1]}`} step={10} width={600}/>
+    </xmp>
+  </section>
+
+	<section>
+		<h3>Default value</h3>
+    <div id="range-value"></div>
+		<div id="range-value-result">120, 180</div>
+    <xmp>
+<RangeSlider value={[120, 180]} max={200} min={100} onChange={val => document.querySelector('#range-value-result').textContent = `${val[0]}, ${val[1]}`} step={10} width={600}/>
+    </xmp>
+  </section>
+
+	<h2>Usage in form</h2>
+
+	<section>
+    <div id="form"></div>
+    <xmp>
+function showFormData(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  let target = e.target;
+	alert(`
+    Number value: ${target.number.value}
+    Range value: ${target.range.value}
+  `);
+}
+
+React.render((
+  <form onSubmit={showFormData}>
+    <p>
+      Number Slider: <NumberSlider name="number" min={100} max={200} value={150}/>
+    </p>
+    <p>
+      Range Slider: <RangeSlider name="range" min={100} max={200} value={[120, 180]}/>
+    </p>
+    <p>
+      <button type="submit">Submit</button>
+    </p>
+  </form>
+), document.querySelector('#form'));
+    </xmp>
+  </section>
+
 	<script src="../demo.entry.js"></script>
 </body>
 </html>

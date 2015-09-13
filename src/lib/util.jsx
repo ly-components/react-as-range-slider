@@ -16,7 +16,7 @@ function getOffsetByValue(value, width, max, min, step) {
 function getValueByOffset(offset, width, max, min, step) {
 	let pixPerStep = getPixPerStep(width, max, min, step);
 	let steps = Math.round(offset / pixPerStep);
-	let value = steps * step;
+	let value = steps * step + min;
   return (value > max) ? value - step : value;
 }
 
