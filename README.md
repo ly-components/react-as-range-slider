@@ -39,7 +39,8 @@ React.render(<RangeSlider/>, document.querySelector('#range'));
 | name | 表单中的字段名称 | String | `null` |
 | onChange | 值变化时回调 | `Function(Number value)` | `noop` |
 | step | 每步变化的值 | Number | `1` |
-| value | 初始值 | Number | `{min}` |
+| value | 组件值 | Number | `{min}` |
+| defaultValue | 默认值 | Number | `{min}` |
 | width | 元素的宽度 | Number | `300` |
 
 ### RangeSlider
@@ -52,7 +53,8 @@ React.render(<RangeSlider/>, document.querySelector('#range'));
 | name | 表单中的字段名称 | String | `null` |
 | onChange | 值变化时回调 | `Function([Number left, Number right])` | `noop` |
 | step | 每步变化的值 | Number | `1` |
-| value | 初始范围 | `[Number left, Number right]` | `[{min}, {max}]` |
+| value | 范围值 | `[Number left, Number right]` | `[{min}, {max}]` |
+| defaultValue | 默认范围值 | `[Number left, Number right]` | `[{min}, {max}]` |
 | width | 元素的宽度 | Number | `300` |
 
 ## 开发

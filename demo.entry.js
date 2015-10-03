@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d49c3e4257c1ebbbac6e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fbe16f5f7ee6941a33f5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -7989,7 +7989,7 @@
 
 	_react2['default'].render(_react2['default'].createElement(_srcIndex.NumberSlider, { max: 200, min: 100, onChange: function (val) {
 	    return document.querySelector('#normal-value-result').textContent = val;
-	  }, step: 10, value: 150, width: 600 }), document.querySelector('#normal-value'));
+	  }, step: 10, defaultValue: 150, width: 600 }), document.querySelector('#normal-value'));
 
 	_react2['default'].render(_react2['default'].createElement(_srcIndex.RangeSlider, { onChange: function (val) {
 	    return document.querySelector('#range-result').textContent = '' + val[0] + ', ' + val[1];
@@ -8007,7 +8007,7 @@
 	    return document.querySelector('#range-width-result').textContent = '' + val[0] + ', ' + val[1];
 	  }, step: 10, width: 600 }), document.querySelector('#range-width'));
 
-	_react2['default'].render(_react2['default'].createElement(_srcIndex.RangeSlider, { value: [120, 180], max: 200, min: 100, onChange: function (val) {
+	_react2['default'].render(_react2['default'].createElement(_srcIndex.RangeSlider, { defaultValue: [120, 180], max: 200, min: 100, onChange: function (val) {
 	    return document.querySelector('#range-value-result').textContent = '' + val[0] + ', ' + val[1];
 	  }, right: 180, step: 10, width: 600 }), document.querySelector('#range-value'));
 
@@ -28909,7 +28909,7 @@
 
 	    _get(Object.getPrototypeOf(NumberSlider.prototype), 'constructor', this).call(this);
 	    this.state = {
-	      value: (0, _util.getSteppedValue)(props.value || props.min, props.max, props.min, props.step),
+	      value: (0, _util.getSteppedValue)((0, _util.getDefault)(props.value, props.defaultValue, props.min), props.max, props.min, props.step),
 	      dragging: false
 	    };
 	    this._handleDragMove = this._handleDragMove.bind(this);
@@ -28920,11 +28920,11 @@
 	  _createClass(NumberSlider, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(props) {
-	      var min = props.min || this.props.min;
-	      var max = props.max || this.props.max;
-	      var step = props.step || this.props.step;
+	      var min = (0, _util.getDefault)(props.min, this.props.min);
+	      var max = (0, _util.getDefault)(props.max, this.props.max);
+	      var step = (0, _util.getDefault)(props.step, this.props.step);
 	      if ('value' in props) this.setState({
-	        value: (0, _util.getSteppedValue)(props.value || this.state.value || min, max, min, step)
+	        value: (0, _util.getSteppedValue)((0, _util.getDefault)(props.value, this.state.value, min), max, min, step)
 	      });
 	    }
 	  }, {
@@ -28992,6 +28992,7 @@
 	    key: 'propTypes',
 	    value: {
 	      className: _react2['default'].PropTypes.string,
+	      defaultValue: _react2['default'].PropTypes.number,
 	      max: _react2['default'].PropTypes.number,
 	      min: _react2['default'].PropTypes.number,
 	      name: _react2['default'].PropTypes.string,
@@ -29010,7 +29011,9 @@
 	      step: 1,
 	      width: 300,
 	      onChange: function onChange() {},
-	      name: null
+	      name: null,
+	      value: null,
+	      defaultValue: null
 	    },
 	    enumerable: true
 	  }]);
@@ -29995,7 +29998,7 @@
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(217), RootInstanceProvider = __webpack_require__(215), ReactMount = __webpack_require__(125), React = __webpack_require__(59); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } (function () {
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 	function getTotalSteps(max, min, step) {
@@ -30038,15 +30041,26 @@
 	  return dist;
 	}
 
-	exports["default"] = {
+	function getDefault() {
+	  for (var _len2 = arguments.length, value = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	    value[_key2] = arguments[_key2];
+	  }
+
+	  for (var i = 0, m = value.length; i < m; i++) {
+	    if (typeof value[i] === 'number') return value[i];
+	  }return null;
+	}
+
+	exports['default'] = {
 	  getTotalSteps: getTotalSteps,
 	  getPixPerStep: getPixPerStep,
 	  getOffsetByValue: getOffsetByValue,
 	  getValueByOffset: getValueByOffset,
 	  getSteppedValue: getSteppedValue,
+	  getDefault: getDefault,
 	  merge: merge
 	};
-	module.exports = exports["default"];
+	module.exports = exports['default'];
 
 	/* REACT HOT LOADER */ }).call(this); if (true) { (function () { module.hot.dispose(function (data) { data.makeHot = module.makeHot; }); if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(229), foundReactClasses = false; if (makeExportsHot(module, __webpack_require__(59))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "util.jsx" + ": " + err.message); } }); } } })(); }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module)))
@@ -30097,7 +30111,7 @@
 
 	    _get(Object.getPrototypeOf(NumberSlider.prototype), 'constructor', this).call(this);
 
-	    var _ref = props.value || [];
+	    var _ref = props.value || props.defaultValue;
 
 	    var _ref2 = _slicedToArray(_ref, 2);
 
@@ -30105,8 +30119,8 @@
 	    var right = _ref2[1];
 
 	    this.state = {
-	      left: (0, _util.getSteppedValue)(left || props.min, props.max, props.min, props.step),
-	      right: (0, _util.getSteppedValue)(right || props.max, props.max, props.min, props.step)
+	      left: (0, _util.getSteppedValue)((0, _util.getDefault)(left, props.min), props.max, props.min, props.step),
+	      right: (0, _util.getSteppedValue)((0, _util.getDefault)(right, props.max), props.max, props.min, props.step)
 	    };
 	    this._handleLeftDragMove = this._handleLeftDragMove.bind(this);
 	    this._handleRightDragMove = this._handleRightDragMove.bind(this);
@@ -30117,9 +30131,9 @@
 	  _createClass(NumberSlider, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(props) {
-	      var min = props.min || this.props.min;
-	      var max = props.max || this.props.max;
-	      var step = props.step || this.props.step;
+	      var min = (0, _util.getDefault)(props.min, this.props.min);
+	      var max = (0, _util.getDefault)(props.max, this.props.max);
+	      var step = (0, _util.getDefault)(props.step, this.props.step);
 	      if (Array.isArray(props.value)) {
 	        var _props$value = _slicedToArray(props.value, 2);
 
@@ -30127,8 +30141,8 @@
 	        var right = _props$value[1];
 
 	        this.setState({
-	          left: (0, _util.getSteppedValue)(left || this.state.left || min, max, min, step),
-	          right: (0, _util.getSteppedValue)(right || this.state.right || min, max, min, step)
+	          left: (0, _util.getSteppedValue)((0, _util.getDefault)(left, this.state.left, min), max, min, step),
+	          right: (0, _util.getSteppedValue)((0, _util.getDefault)(right, this.state.right, max), max, min, step)
 	        });
 	      }
 	    }
@@ -30240,6 +30254,7 @@
 	    key: 'propTypes',
 	    value: {
 	      className: _react2['default'].PropTypes.string,
+	      defaultValue: _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.number),
 	      max: _react2['default'].PropTypes.number,
 	      min: _react2['default'].PropTypes.number,
 	      name: _react2['default'].PropTypes.string,
@@ -30258,7 +30273,8 @@
 	      step: 1,
 	      width: 300,
 	      onChange: function onChange() {},
-	      name: null
+	      name: null,
+	      defaultValue: []
 	    },
 	    enumerable: true
 	  }]);

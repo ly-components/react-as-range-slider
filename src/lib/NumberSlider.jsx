@@ -7,13 +7,15 @@ import {
   getPixPerStep,
   getOffsetByValue,
   getValueByOffset,
-	getSteppedValue
+	getSteppedValue,
+  getDefault
 } from './util';
 
 class NumberSlider extends React.Component {
   static displayName = 'NumberSlider'
   static propTypes = {
     className: React.PropTypes.string,
+    defaultValue: React.PropTypes.number,
     max: React.PropTypes.number,
     min: React.PropTypes.number,
 		name: React.PropTypes.string,
@@ -29,23 +31,25 @@ class NumberSlider extends React.Component {
     step: 1,
     width: 300,
     onChange: () => {},
-		name: null
+		name: null,
+    value: null,
+    defaultValue: null
   }
   constructor(props) {
     super();
     this.state = {
-      value: getSteppedValue(props.value || props.min, props.max, props.min, props.step),
+      value: getSteppedValue(getDefault(props.value, props.defaultValue, props.min), props.max, props.min, props.step),
       dragging: false
     };
     this._handleDragMove = this._handleDragMove.bind(this);
   }
   componentWillReceiveProps(props) {
-    let min = props.min || this.props.min;
-    let max = props.max || this.props.max;
-    let step = props.step || this.props.step;
+    let min = getDefault(props.min, this.props.min);
+    let max = getDefault(props.max, this.props.max);
+    let step = getDefault(props.step, this.props.step);
     if('value' in props)
       this.setState({
-        value: getSteppedValue(props.value || this.state.value || min, max, min, step)
+        value: getSteppedValue(getDefault(props.value, this.state.value, min), max, min, step)
       });
   }
   _handleDragMove(e) {

@@ -8,13 +8,18 @@ import {
   getOffsetByValue,
   getValueByOffset,
   getSteppedValue,
+  getDefault,
   merge
 } from './util';
+
+
+
 
 class NumberSlider extends React.Component {
   static displayName = 'NumberSlider'
   static propTypes = {
     className: React.PropTypes.string,
+    defaultValue: React.PropTypes.arrayOf(React.PropTypes.number),
     max: React.PropTypes.number,
     min: React.PropTypes.number,
 		name: React.PropTypes.string,
@@ -30,27 +35,28 @@ class NumberSlider extends React.Component {
     step: 1,
     width: 300,
     onChange: () => {},
-		name: null
+		name: null,
+    defaultValue: []
   }
   constructor(props) {
     super();
-    let [left, right] = props.value || [];
+    let [left, right] = props.value || props.defaultValue;
     this.state = {
-      left: getSteppedValue(left || props.min, props.max, props.min, props.step),
-      right: getSteppedValue(right || props.max, props.max, props.min, props.step)
+      left: getSteppedValue(getDefault(left, props.min), props.max, props.min, props.step),
+      right: getSteppedValue(getDefault(right, props.max), props.max, props.min, props.step)
     };
     this._handleLeftDragMove = this._handleLeftDragMove.bind(this);
     this._handleRightDragMove = this._handleRightDragMove.bind(this);
   }
   componentWillReceiveProps(props) {
-    let min = props.min || this.props.min;
-    let max = props.max || this.props.max;
-    let step = props.step || this.props.step;
+    let min = getDefault(props.min, this.props.min);
+    let max = getDefault(props.max, this.props.max);
+    let step = getDefault(props.step, this.props.step);
     if(Array.isArray(props.value)) {
       let [left, right] = props.value;
       this.setState({
-        left: getSteppedValue(left || this.state.left || min, max, min, step),
-        right: getSteppedValue(right || this.state.right || min, max, min, step),
+        left: getSteppedValue(getDefault(left, this.state.left, min), max, min, step),
+        right: getSteppedValue(getDefault(right, this.state.right, max), max, min, step),
       });
     }
   }

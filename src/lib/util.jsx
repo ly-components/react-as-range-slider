@@ -34,11 +34,19 @@ function merge(dist, ...src) {
   return dist;
 }
 
+function getDefault(...value) {
+  for (let i = 0, m = value.length; i < m; i++)
+    if(typeof value[i] === 'number')
+      return value[i];
+  return null;
+}
+
 export default {
   getTotalSteps,
   getPixPerStep,
   getOffsetByValue,
   getValueByOffset,
   getSteppedValue,
+	getDefault,
   merge
 };

@@ -48,7 +48,7 @@
     <div id="normal-value"></div>
 		<div id="normal-value-result">150</div>
     <xmp>
-<NumberSlider value={150} step={10} width={600} max={200} min={100} onChange={val => document.querySelector('#normal-value-result').textContent = val}/>
+<NumberSlider defaultValue={150} step={10} width={600} max={200} min={100} onChange={val => document.querySelector('#normal-value-result').textContent = val}/>
     </xmp>
   </section>
 
@@ -95,7 +95,7 @@
     <div id="range-value"></div>
 		<div id="range-value-result">120, 180</div>
     <xmp>
-<RangeSlider value={[120, 180]} max={200} min={100} onChange={val => document.querySelector('#range-value-result').textContent = `${val[0]}, ${val[1]}`} step={10} width={600}/>
+<RangeSlider defaultValue={[120, 180]} max={200} min={100} onChange={val => document.querySelector('#range-value-result').textContent = `${val[0]}, ${val[1]}`} step={10} width={600}/>
     </xmp>
   </section>
 
